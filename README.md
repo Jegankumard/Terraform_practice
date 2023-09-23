@@ -1,115 +1,277 @@
-# Terraform_practice
+# Terraform_practice - Terraform Command Lines:
 
-Terraform Command Lines:
-
-Terraform CLI tricks
+#Terraform CLI tricks
 ===================================
-terraform -install-autocomplete     #Setup tab auto-completion, requires logging back in
-========================================================================================================
+Setup tab auto-completion, requires logging back in
+```
+terraform -install-autocomplete
+```    
+===================================================================================
 
-Format and Validate Terraform code
+#Format and Validate Terraform code
 ===================================
-terraform fmt                           #format code per HCL canonical standard
-terraform validate                      #validate code for syntax
-terraform validate -backend=false       #validate code skip backend validation
-========================================================================================================
+format code per HCL canonical standard
+```
+terraform fmt
+```                           
+validate code for syntax
+```
+terraform validate
+```
+validate code skip backend validation
+```
+terraform validate -backend=false
+```
+===================================================================================
 
-Initialize your Terraform working directory
+#Initialize your Terraform working directory
 ===========================================
-terraform init                          #initialize directory, pull down providers
-terraform init -get-plugins=false       #initialize directory, do not download plugins
-terraform init -verify-plugins=false    #initialize directory, do not verify plugins for Hashicorp signature
-terraform init -input=true	            #Ask for input if necessary
-terraform init -lock=false	            #Disable locking of state files during state-related operations
-========================================================================================================
+initialize directory, pull down providers
+```
+terraform init                       
+```
+initialize directory, do not download plugins
+```
+terraform init -get-plugins=false
+```
+initialize directory, do not verify plugins for Hashicorp signature
+```
+terraform init -verify-plugins=false
+```
+Ask for input if necessary
+```
+terraform init -input=true
+```     
+Disable locking of state files during state-related operations
+```
+terraform init -lock=false
+```
+===================================================================================
 
-Plan, Deploy and Cleanup Infrastructure
+#Plan, Deploy and Cleanup Infrastructure
 ========================================
-terraform apply --auto-approve      #apply changes without being prompted to enter "yes"
-terraform destroy --auto-approve    #destroy/cleanup deployment without being prompted for “yes”
-terraform plan -out plan.out        #output the deployment plan to plan.out
-terraform apply plan.out            #use the plan.out plan file to deploy infrastructure
-terraform plan -destroy             #outputs a destroy plan
-terraform apply -target=aws_instance.my_ec2         #only apply/deploy changes to the targeted resource
-terraform apply -var my_region_variable=us-east-1   #pass a variable via command-line while applying a configuration
-terraform apply -lock=true          #lock the state file so it can't be modified by any other Terraform apply or modification action(possible only where backend allows locking)
-terraform apply refresh=false       # do not reconcile state file with real-world resources(helpful with large complex deployments for saving deployment time)
-terraform apply --parallelism=5     #number of simultaneous resource operations
-terraform refresh                   #reconcile the state in Terraform state file with real-world resources
-terraform providers                 #get information about providers used in current configuration
+Creates an execution plan (dry run)
+```
+terraform plan
+```
+save generated plan output as a file
+```
+terraform plan -out=plan.out
+```
+Outputs a destroy plan
+```
+terraform plan -destroy
+```
+Executes changes to the actual environment
+```
+terraform apply
+```
+use the plan.out plan file to deploy infrastructure
+```
+terraform apply plan.out
+```
+Apply changes without being prompted to enter ”yes”
+```
+terraform apply –auto-approve
+```
+lock the state file so it can't be modified by any other terraform apply or modification action
+```
+terraform apply -lock=true
+```
+Update the state for each resource prior to planning and applying
+```
+terraform apply -refresh=true
+```
+Ask for input for variables if not directly set
+```
+terraform apply -input=false
+```
+Set a variable in the terraform configuration, can be used multiple times
+```
+terraform apply -var ‘my_region_variable=us-east-1’
+```
+Specify a file that contains key/value pairs for variable values
+```
+terraform apply -var-file=foo
+```
+Only apply/deploy changes to the targeted resource
+```
+terraform apply -target=aws_instance.my_ec2
+```
+Destroy/cleanup without being prompted to enter ”yes”
+```
+terraform destroy –auto-approve
+```
+Only destroy the targeted resource and its dependencies
+```
+terraform destroy -target
+``` 
+do not reconcile state file with real-world resources(helpful with large complex deployments )
+```
+terraform apply refresh=false
+```
+number of simultaneous resource operations
+```
+terraform apply --parallelism=5
+```
+reconcile the state in terraform state file with real-world resources
+```
+terraform refresh
+```
+get information about providers used in current configuration
+```
+terraform providers
+```               
+===================================================================================
 
-terraform plan	                #Creates an execution plan (dry run)
-terraform plan -out=path	    #save generated plan output as a file
-terraform plan -destroy	        #Outputs a destroy plan
-terraform apply	                #Executes changes to the actual environment
-terraform apply –auto-approve	#Apply changes without being prompted to enter ”yes”
-terraform apply -refresh=true	#Update the state for each resource prior to planning and applying
-terraform apply -input=false	#Ask for input for variables if not directly set
-terraform apply -var ‘foo=bar’	#Set a variable in the Terraform configuration, can be used multiple times
-terraform apply -var-file=foo	#Specify a file that contains key/value pairs for variable values
-terraform apply -target	        #Only apply/deploy changes to the targeted resource
-terraform destroy –auto-approve	#Destroy/cleanup without being prompted to enter ”yes”
-terraform destroy -target	    #Only destroy the targeted resource and its dependencies
-========================================================================================================
-
-Terraform Workspaces
+#Terraform Workspaces
 ====================
-terraform workspace new mynewworkspace  #create a new workspace
-terraform workspace select default      #change to the selected workspace
-terraform workspace list                #list out all workspaces
-terraform workspace show	            #Show the name of the current workspace
-terraform workspace delete	            #Delete an empty workspace
-========================================================================================================
+create a new workspace
+```
+terraform workspace new mynewworkspace
+```
+change to the selected workspace
+```
+terraform workspace select default
+``` 
+ list out all workspaces
+ ```
+terraform workspace list
+```     
+ Show the name of the current workspace
+ ```
+terraform workspace show
+``` 
+Delete an empty workspace
+```
+terraform workspace delete
+```      
+===================================================================================
 
-Terraform State Manipulation
+#Terraform State Manipulation
 ============================
-terraform state show aws_instance.my_ec2    #show details stored in Terraform state for the resource
-terraform state pull > terraform.tfstate    #download and output terraform state to a file
-terraform state mv aws_iam_role.my_ssm_role module.custom_module        #move a resource tracked via state to different module
-terraform state replace-provider hashicorp/aws registry.custom.com/aws  #replace an existing provider with another
-terraform state list                        #list out all the resources tracked via the current state file
-terraform state rm  aws_instance.myinstace  #unmanage a resource, delete it from Terraform state file
+show details stored in Terraform state for the resource
+```
+terraform state show aws_instance.my_ec2
+```
+download and output terraform state to a file
+```
+terraform state pull > terraform.tfstate
+```
+move a resource tracked via state to different module
+```
+terraform state mv aws_iam_role.my_ssm_role module.custom_module
+```    
+replace an existing provider with another
+```
+terraform state replace-provider hashicorp/aws registry.custom.com/aws
+```
+list out all the resources tracked via the current state file
+```
+terraform state list
+```            
+unmanage a resource, delete it from Terraform state file
+```
+terraform state rm  aws_instance.myinstace
+```
+Refresh state file
+```
 terraform state refresh
-========================================================================================================
+```
+===================================================================================
 
-Terraform Import And Outputs
+#Terraform Import And Outputs
 ============================
-terraform import aws_instance.new_ec2_instance i-abcd1234 #import EC2 instance with id i-abcd1234 into the Terraform resource named "new_ec2_instance" of type "aws_instance"
-terraform import 'aws_instance.new_ec2_instance[0]' i-abcd1234 #same as above, imports a real-world resource into an instance of Terraform resource
-terraform output                    #list all outputs as stated in code
-terraform output instance_public_ip # list out a specific declared output
-terraform output -json              #list all outputs in JSON format
-terraform show	                    #provide human-readable output from a state or plan file
-========================================================================================================
+import EC2 instance with id i-abcd1234 into the Terraform resource named "new_ec2_instance" of type "aws_instance"
+```
+terraform import aws_instance.new_ec2_instance i-abcd1234
+```
+same as above, imports a real-world resource into an instance of Terraform resource
+```
+terraform import 'aws_instance.new_ec2_instance[0]' i-abcd1234
+```
+list all outputs as stated in code
+```
+terraform output
+```                
+list out a specific declared output
+```
+terraform output instance_public_ip
+```
+list all outputs in JSON format
+```
+terraform output -json
+```   
+provide human-readable output from a state or plan file
+```
+terraform show
+```                 
+===================================================================================
 
-Terraform Miscelleneous commands
+#Terraform Miscelleneous commands
 ================================
-terraform version           #display Terraform binary version, also warns if version is old
-terraform get	            #downloads and update modules mentioned in the root module
-terraform get -update=true  #download and update modules in the "root" module.
-========================================================================================================
+display Terraform binary version, also warns if version is old
+```
+terraform version
+```
+downloads and update modules mentioned in the root module
+```
+terraform get
+```
+download and update modules in the "root" module
+```
+terraform get -update=true
+```
+===================================================================================
 
-Terraform Console(Test out Terraform interpolations)
+#Terraform Console(Test out Terraform interpolations)
 ====================================================
-echo 'join(",",["foo","bar"])' | terraform console #echo an expression into terraform console and see its expected result as output
-echo '1 + 5' | terraform console    #Terraform console also has an interactive CLI just enter "terraform console"
-echo "aws_instance.my_ec2.public_ip" | terraform console #display the Public IP against the "my_ec2" Terraform resource as seen in the Terraform state file
-========================================================================================================
+echo an expression into terraform console and see its expected result as output
+```
+echo 'join(",",["foo","bar"])' | terraform console
+```
+Terraform console also has an interactive CLI just enter "terraform console"
+```
+echo '1 + 5' | terraform console
+```
+display the Public IP against the "my_ec2" Terraform resource as seen in the Terraform state file
+```
+echo "aws_instance.my_ec2.public_ip" | terraform console
+```
+===================================================================================
 
-Terraform Graph(Dependency Graphing)
+#Terraform Graph(Dependency Graphing)
 ====================================
-terraform graph | dot -Tpng > graph.png     #produce a PNG diagrams showing relationship and dependencies between Terraform resource in your configuration/code
-========================================================================================================
+produce a PNG diagrams showing relationship and dependencies between Terraform resource in your configuration/code
+```
+terraform graph | dot -Tpng > graph.png     
+```
+===================================================================================
 
-Terraform Taint/Untaint(mark/unmark resource for recreation -> delete and then recreate)
-=========================================================================================
-terraform taint aws_instance.my_ec2     #taints resource to be recreated on next apply
-terraform untaint aws_instance.my_ec2   #Remove taint from a resource
-terraform force-unlock LOCK_ID          #forcefully unlock a locked state file, LOCK_ID provided when locking the State file beforehand
-========================================================================================================
+#Terraform Taint/Untaint(mark/unmark resource for recreation -> delete and then recreate)
+===================================================================================
+taints resource to be recreated on next apply
+```
+terraform taint aws_instance.my_ec2     
+```
+Remove taint from a resource
+```
+terraform untaint aws_instance.my_ec2   
+```
+forcefully unlock a locked state file, LOCK_ID provided when locking the State file beforehand
+```
+terraform force-unlock LOCK_ID          
+```
+===================================================================================
 
-Terraform Cloud
+#Terraform Cloud
 ================
-terraform login     #obtain and save API token for Terraform cloud
-terraform logout    #Log out of Terraform Cloud, defaults to hostname app.terraform.io
-========================================================================================================
+obtain and save API token for Terraform cloud
+```
+terraform login
+```
+Log out of Terraform Cloud, defaults to hostname app.terraform.io
+```
+terraform logout
+```
+===================================================================================
