@@ -1,6 +1,6 @@
 # Terraform_practice - Terraform Command Lines:
 
-#Terraform CLI tricks
+### Terraform CLI tricks
 
 Setup tab auto-completion, requires logging back in
 ```
@@ -8,7 +8,7 @@ terraform -install-autocomplete
 ```    
 
 
-#Format and Validate Terraform code
+### Format and Validate Terraform code
 
 format code per HCL canonical standard
 ```
@@ -24,7 +24,7 @@ terraform validate -backendfalse
 ```
 
 
-#Initialize your Terraform working directory
+### Initialize your Terraform working directory
 
 initialize directory, pull down providers
 ```
@@ -48,7 +48,7 @@ terraform init -lockfalse
 ```
 
 
-#Plan, Deploy and Cleanup Infrastructure
+### Plan, Deploy and Cleanup Infrastructure
 
 Creates an execution plan (dry run)
 ```
@@ -124,7 +124,7 @@ terraform providers
 ```               
 
 
-#Terraform Workspaces
+### Terraform Workspaces
 
 create a new workspace
 ```
@@ -148,7 +148,7 @@ terraform workspace delete
 ```      
 
 
-#Terraform State Manipulation
+### Terraform State Manipulation
 
 show details stored in Terraform state for the resource
 ```
@@ -180,7 +180,7 @@ terraform state refresh
 ```
 
 
-#Terraform Import And Outputs
+### Terraform Import And Outputs
 
 import EC2 instance with id i-abcd1234 into the Terraform resource named "new_ec2_instance" of type "aws_instance"
 ```
@@ -208,7 +208,7 @@ terraform show
 ```                 
 
 
-#Terraform Miscelleneous commands
+### Terraform Miscelleneous commands
 
 display Terraform binary version, also warns if version is old
 ```
@@ -224,7 +224,7 @@ terraform get -updatetrue
 ```
 
 
-#Terraform Console(Test out Terraform interpolations)
+### Terraform Console(Test out Terraform interpolations)
 
 echo an expression into terraform console and see its expected result as output
 ```
@@ -240,7 +240,7 @@ echo "aws_instance.my_ec2.public_ip" | terraform console
 ```
 
 
-#Terraform Graph(Dependency Graphing)
+### Terraform Graph(Dependency Graphing)
 
 produce a PNG diagrams showing relationship and dependencies between Terraform resource in your configuration/code
 ```
@@ -248,7 +248,7 @@ terraform graph | dot -Tpng > graph.png
 ```
 
 
-#Terraform Taint/Untaint(mark/unmark resource for recreation -> delete and then recreate)
+### Terraform Taint/Untaint(mark/unmark resource for recreation -> delete and then recreate)
 
 taints resource to be recreated on next apply
 ```
@@ -264,7 +264,7 @@ terraform force-unlock LOCK_ID
 ```
 
 
-#Terraform Cloud
+### Terraform Cloud
 
 obtain and save API token for Terraform cloud
 ```
