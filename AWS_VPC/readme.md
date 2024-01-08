@@ -50,3 +50,9 @@
   > lb_arn, port, protocol, default_action
   > default_action - type, ter_grp_arn
 - output aws lb dns to access application
+
+### variables.tf
+
+- cidr
+- vpc_id
+- avail_zone
