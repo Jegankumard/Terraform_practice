@@ -11,7 +11,7 @@ resource "aws_subnet" "sub1" {
     depends_on = [ aws_vpc.myvpc ]
     vpc_id = aws_vpc.myvpc.id
 
-    cidr_block = var.cidr
+    cidr_block = "10.0.0.0/24"
     availability_zone = "us-east-1a"
     map_public_ip_on_launch = true
 }
@@ -19,7 +19,7 @@ resource "aws_subnet" "sub1" {
 resource "aws_subnet" "sub2" {
     depends_on = [ aws_vpc.myvpc ]
     vpc_id = aws_vpc.myvpc.id
-    cidr_block = var.cidr
+    cidr_block = "10.0.1.0/24"
     availability_zone = "us-east-1b"
     map_public_ip_on_launch = true
 }
@@ -28,7 +28,7 @@ resource "aws_route_table" "rt" {
     depends_on = [ aws_vpc.myvpc, aws_internet_gateway.igw ]
     vpc_id = aws_vpc.myvpc.id
     route {
-        cidr_block = var.cidr
+        cidr_block = "0.0.0.0/0"
         gateway_id = aws_internet_gateway.igw.id
     }
 }
@@ -55,21 +55,20 @@ resource "aws_security_group" "awssg" {
     from_port        = 22
     to_port          = 22
     protocol         = "tcp"
-    cidr_blocks      = [aws_vpc.myvpc.cidr_block]
+    cidr_blocks      = ["0.0.0.0/0"]
   }
   ingress {
     description      = "HTTP from VPC"
     from_port        = 80
     to_port          = 80
     protocol         = "tcp"
-    cidr_blocks      = [aws_vpc.myvpc.cidr_block]
+    cidr_blocks      = ["0.0.0.0/0"]
   }
   egress {
     from_port        = 0
     to_port          = 0
     protocol         = "-1"
     cidr_blocks      = ["0.0.0.0/0"]
-    ipv6_cidr_blocks = ["::/0"]
   }
 
   tags = {
