@@ -6,7 +6,7 @@ Setup tab auto-completion, requires logging back in
 ```
 terraform -install-autocomplete
 ```    
-===================================================================================
+================================================
 
 #Format and Validate Terraform code
 ===================================
@@ -22,7 +22,7 @@ validate code skip backend validation
 ```
 terraform validate -backend=false
 ```
-===================================================================================
+================================================
 
 #Initialize your Terraform working directory
 ===========================================
@@ -46,7 +46,7 @@ Disable locking of state files during state-related operations
 ```
 terraform init -lock=false
 ```
-===================================================================================
+================================================
 
 #Plan, Deploy and Cleanup Infrastructure
 ========================================
@@ -122,7 +122,7 @@ get information about providers used in current configuration
 ```
 terraform providers
 ```               
-===================================================================================
+================================================
 
 #Terraform Workspaces
 ====================
@@ -146,7 +146,7 @@ Delete an empty workspace
 ```
 terraform workspace delete
 ```      
-===================================================================================
+================================================
 
 #Terraform State Manipulation
 ============================
@@ -178,7 +178,7 @@ Refresh state file
 ```
 terraform state refresh
 ```
-===================================================================================
+================================================
 
 #Terraform Import And Outputs
 ============================
@@ -206,7 +206,7 @@ provide human-readable output from a state or plan file
 ```
 terraform show
 ```                 
-===================================================================================
+================================================
 
 #Terraform Miscelleneous commands
 ================================
@@ -222,7 +222,7 @@ download and update modules in the "root" module
 ```
 terraform get -update=true
 ```
-===================================================================================
+================================================
 
 #Terraform Console(Test out Terraform interpolations)
 ====================================================
@@ -238,7 +238,7 @@ display the Public IP against the "my_ec2" Terraform resource as seen in the Ter
 ```
 echo "aws_instance.my_ec2.public_ip" | terraform console
 ```
-===================================================================================
+================================================
 
 #Terraform Graph(Dependency Graphing)
 ====================================
@@ -246,10 +246,10 @@ produce a PNG diagrams showing relationship and dependencies between Terraform r
 ```
 terraform graph | dot -Tpng > graph.png     
 ```
-===================================================================================
+================================================
 
 #Terraform Taint/Untaint(mark/unmark resource for recreation -> delete and then recreate)
-===================================================================================
+================================================
 taints resource to be recreated on next apply
 ```
 terraform taint aws_instance.my_ec2     
@@ -262,7 +262,7 @@ forcefully unlock a locked state file, LOCK_ID provided when locking the State f
 ```
 terraform force-unlock LOCK_ID          
 ```
-===================================================================================
+================================================
 
 #Terraform Cloud
 ================
@@ -274,4 +274,4 @@ Log out of Terraform Cloud, defaults to hostname app.terraform.io
 ```
 terraform logout
 ```
-===================================================================================
+================================================
