@@ -37,7 +37,7 @@ resource "aws_route_table_association" "rta2" {
     route_table_id = aws_route_table.rt.id
 }
 
-resource "aws_security_group" "sg" {
+resource "aws_security_group" "awssg" {
   name        = "awssg"
   description = "Allow TLS inbound traffic"
   vpc_id      = aws_vpc.myvpc.id
@@ -88,7 +88,7 @@ resource "aws_instance" "ec2_2" {
     user_data              = base64encode(file("user_data_2.sh"))
 }
 resource "aws_lb" "myalb" {
-    name               = "my_alb"
+    name               = "myalb"
     internal           = false
     load_balancer_type = "application"
     security_groups    = [aws_security_group.sg.id]
