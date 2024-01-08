@@ -76,7 +76,7 @@ resource "aws_security_group" "awssg" {
   }
 }
 
-resource "aws_s3_bucket" "bucket1" {
+resource "aws_s3_bucket" "example" {
   bucket = "AwsTerraformBucketJK"
 }
 
